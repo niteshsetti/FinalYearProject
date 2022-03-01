@@ -5,7 +5,6 @@ $sql = "select *from cart where Tableno='$table_numbers'";
 $exec = mysqli_query($connection, $sql);
 $count_items = mysqli_num_rows($exec);
 $items = [];
-$f="string";
 ?>
 <!DOCTYPE html>
 <html lang="en">
