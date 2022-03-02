@@ -39,6 +39,7 @@ $items = [];
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../middleware/remove.js"></script>
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
   * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
@@ -111,6 +112,7 @@ $items = [];
                         @$fetchr = mysqli_fetch_array($execute_items_quan);
                         $q = $fetchr[4];
                         $r = $fetchr[5];
+                        $ct = $fetchr[6];
                         while ($fetchd = mysqli_fetch_array($execute_items)) {
                             $get_item_name = $fetchd[2];
                             $image = $fetchd[7];
@@ -121,7 +123,7 @@ $items = [];
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="<?php echo $it; ?>" name="type">
                                 </div>
-                                <img src="../assets/images/<?php echo $image; ?>" class="menu-img" alt=""><sub><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></sub>
+                                <img src="../assets/images/<?php echo $image; ?>" class="menu-img" alt=""><sub><a onclick="remo('<?php echo $items[$i]; ?>','<?php echo $ct;?>')"><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
                                 <div class="menu-content">
                                     <a href="#"><?php echo $get_item_name; ?></a><span>&#8377;<?php echo $rate; ?></span>
                                 </div>

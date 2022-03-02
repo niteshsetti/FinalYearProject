@@ -9,7 +9,8 @@ if(isset($_POST["itemid"]) || isset($_POST["name"]) || isset($_POST["phno"]) || 
     $quan=$_POST["quan"];
     $total_cost=$_POST["icost"];
     $op=$quan*$total_cost;
-    $sql="insert into cart(Name,Phno,Tableno,Item,Quantity,Total)values('$c_name','$c_phno','$table_no','$itemid','$quan','$op')";
+    $c_id=uniqid();
+    $sql="insert into cart(Candid,Name,Phno,Tableno,Item,Quantity,Total)values('$c_id','$c_name','$c_phno','$table_no','$itemid','$quan','$op')";
     $execute=mysqli_query($connection,$sql);
     if($execute)
     {
