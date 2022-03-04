@@ -6,6 +6,7 @@ $sql = "select *from cart where Tableno='$table_numbers'";
 $exec = mysqli_query($connection, $sql);
 $count_items = mysqli_num_rows($exec);
 $items = [];
+$candid=[];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +42,8 @@ $items = [];
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../middleware/remove.js"></script>
+    <script src="../middleware/signout.js"></script>
+    <script src="../middleware/voice.js"></script>
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
   * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
@@ -58,6 +61,9 @@ $items = [];
             <div class="contact-info d-flex align-items-center">
                 <i class="bi bi-phone d-flex align-items-center"><span>+91 9032271284</span></i>
                 <i class="bi bi-clock d-flex align-items-center ms-4"><span> Mon-Sat: 11AM - 10PM</span></i>
+            </div>
+            <div class="contact-info d-flex align-items-left">
+                <a onclick="play()"><i class="bi bi-box-arrow-left align-items-center ms-4"><span>Signout</span></i></a>
             </div>
         </div>
     </div>
@@ -100,12 +106,14 @@ $items = [];
                     $execute_staters = mysqli_query($connection, $get_staters);
                     while ($fetchs = mysqli_fetch_array($execute_staters)) {
                         $get_item_no = $fetchs[3];
+                        $can=$fetchs[6];
                         array_push($items, $get_item_no);
+                        array_push($candid, $can);
                     }
                     for ($i = 0; $i < count($items); $i++) {
                         $iteminf = "select *from items where Itemid='$items[$i]'";
                         $execute_items = mysqli_query($connection, $iteminf);
-                        $itemquan = "select *from cart where Item='$items[$i]'";
+                        $itemquan = "select *from cart where Candid='$candid[$i]'and  Item='$items[$i]'";
                         $execute_items_quan = mysqli_query($connection, $itemquan);
                         @$fetchr = mysqli_fetch_array($execute_items_quan);
                         $q = $fetchr[4];
@@ -167,6 +175,7 @@ $items = [];
                 submitButt.attr("disabled", !checkboxes.is(":checked"));
             });
             $("#click").click(function() {
+                voi("select your option");
                 var array = [];
                 $("input:checkbox[name=type]:checked").each(function() {
                     array.push($(this).val());
@@ -179,6 +188,7 @@ $items = [];
                 }).then((result) => {
                     if(result.isConfirmed)
                     {
+                    voi('You had Selected Proceed Payment');
                     $.ajax({
                         url:"../backend/confirms.php",
                         method:"post",
@@ -200,6 +210,12 @@ $items = [];
                   }
                 })
             });
+        </script>
+        <script>
+            function play(){
+                voi('Are You Sure For Cancelling Your table ?');
+                signout();
+            }
         </script>
 
 </body>

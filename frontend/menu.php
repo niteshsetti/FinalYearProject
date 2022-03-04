@@ -16,6 +16,9 @@ include '../backend/dbconnection.php';
     <!-- Favicons -->
     <link href="../assets/img/favicon.png" rel="icon">
     <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -36,6 +39,9 @@ include '../backend/dbconnection.php';
     <script src="../middleware/signout.js"></script>
     <script src="../middleware/getitem.js"></script>
     <script src="../middleware/cc.js"></script>
+    <script src="../middleware/voice.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=YOUR_UNIQUE_KEY"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
@@ -52,22 +58,22 @@ include '../backend/dbconnection.php';
         <div class="container d-flex justify-content-center justify-content-md-between">
 
             <div class="contact-info d-flex align-items-center">
-            <i class="bi bi-person-badge d-flex align-items-center ms-4"><span><?php echo "Hello..".$name;?></span></i>
-            <i class="bi bi-phone d-flex align-items-center ms-4"><span>+91 <?php echo $phone;?></span></i>
-               
+                <i class="bi bi-person-badge d-flex align-items-center ms-4"><span><?php echo "Hello.." . $name; ?></span></i>
+                <i class="bi bi-phone d-flex align-items-center ms-4"><span>+91 <?php echo $phone; ?></span></i>
+                <!-- <div id="google_translate_element" class="ms-4"></div> -->
             </div>
             <div class="contact-info d-flex align-items-left">
-                <a onclick="signout()"><i class="bi bi-box-arrow-left align-items-center ms-4"><span>Signout</span></i></a>
+                <a onclick="play()"><i class="bi bi-box-arrow-left align-items-center ms-4"><span>Signout</span></i></a>
             </div>
         </div>
     </div>
     <header id="header" class="fixed-top d-flex align-items-cente">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
-            <h1 class="logo me-auto me-lg-0">
+            <h3 class="logo me-auto me-lg-0">
                 <p style="color:#cda45e;">Check Our Tasty Menu</p>
-            </h1>
-            <a href="./order.php? tablenumber=<?php echo $table_number;?>"><i class="bi bi-cart d-flex align-items-center" style="color:#cda45e;font-size:30px;"></i><sub id="num"></sub></a>
+            </h3>
+            <a href="./order.php? tablenumber=<?php echo $table_number; ?>"><i class="bi bi-cart d-flex align-items-center" style="color:#cda45e;font-size:30px;"></i><sub id="num"></sub></a>
         </div>
     </header>
     <main id="main">
@@ -83,48 +89,48 @@ include '../backend/dbconnection.php';
                 <div class="row" data-aos="fade-up" data-aos-delay="100">
                     <div class="col-lg-12 d-flex justify-content-center">
                         <ul id="menu-flters">
-                        <?php
-                            $count_items="select *from items";
-                            $get_result=mysqli_query($connection,$count_items);
-                            $count=mysqli_num_rows($get_result);
-                            ?>
-                            <li data-filter="*" class="filter-active">All</li><sup><?php echo $count;?></sup>
                             <?php
-                            $count_items="select *from items where Itemcat='Veg'";
-                            $get_result=mysqli_query($connection,$count_items);
-                            $count=mysqli_num_rows($get_result);
+                            $count_items = "select *from items";
+                            $get_result = mysqli_query($connection, $count_items);
+                            $count = mysqli_num_rows($get_result);
                             ?>
-                            <li data-filter=".filter-veg" class="filter-active">Veg</li><sup><?php echo $count;?></sup>
+                            <li data-filter="*" class="filter-active">All</li><sup><?php echo $count; ?></sup>
                             <?php
-                            $count_items="select *from items where Itemcat='Non-Veg'";
-                            $get_result=mysqli_query($connection,$count_items);
-                            $count=mysqli_num_rows($get_result);
+                            $count_items = "select *from items where Itemcat='Veg'";
+                            $get_result = mysqli_query($connection, $count_items);
+                            $count = mysqli_num_rows($get_result);
                             ?>
-                            <li data-filter=".filter-nonveg" class="filter-active">Non-Veg</li><sup><?php echo $count;?></sup>
+                            <li data-filter=".filter-veg" class="filter-active">Veg</li><sup><?php echo $count; ?></sup>
                             <?php
-                            $count_items="select *from items where Itemcat='Soups'";
-                            $get_result=mysqli_query($connection,$count_items);
-                            $count=mysqli_num_rows($get_result);
+                            $count_items = "select *from items where Itemcat='Non-Veg'";
+                            $get_result = mysqli_query($connection, $count_items);
+                            $count = mysqli_num_rows($get_result);
                             ?>
-                            <li data-filter=".filter-soups" class="filter-active">Soups</li><sup><?php echo $count;?></sup>
+                            <li data-filter=".filter-nonveg" class="filter-active">Non-Veg</li><sup><?php echo $count; ?></sup>
                             <?php
-                            $count_items="select *from items where Itemcat='Starters'";
-                            $get_result=mysqli_query($connection,$count_items);
-                            $count=mysqli_num_rows($get_result);
+                            $count_items = "select *from items where Itemcat='Soups'";
+                            $get_result = mysqli_query($connection, $count_items);
+                            $count = mysqli_num_rows($get_result);
                             ?>
-                            <li data-filter=".filter-starters">Starters</li><sup><?php echo $count;?></sup>
+                            <li data-filter=".filter-soups" class="filter-active">Soups</li><sup><?php echo $count; ?></sup>
                             <?php
-                            $count_items="select *from items where Itemcat='Salads'";
-                            $get_result=mysqli_query($connection,$count_items);
-                            $count=mysqli_num_rows($get_result);
+                            $count_items = "select *from items where Itemcat='Starters'";
+                            $get_result = mysqli_query($connection, $count_items);
+                            $count = mysqli_num_rows($get_result);
                             ?>
-                            <li data-filter=".filter-salads">Salads</li><sup><?php echo $count;?></sup>
+                            <li data-filter=".filter-starters">Starters</li><sup><?php echo $count; ?></sup>
                             <?php
-                            $count_items="select *from items where Itemcat='Specialty'";
-                            $get_result=mysqli_query($connection,$count_items);
-                            $count=mysqli_num_rows($get_result);
+                            $count_items = "select *from items where Itemcat='Salads'";
+                            $get_result = mysqli_query($connection, $count_items);
+                            $count = mysqli_num_rows($get_result);
                             ?>
-                            <li data-filter=".filter-specialty">Specialty</li><sup><?php echo $count;?></sup>
+                            <li data-filter=".filter-salads">Salads</li><sup><?php echo $count; ?></sup>
+                            <?php
+                            $count_items = "select *from items where Itemcat='Specialty'";
+                            $get_result = mysqli_query($connection, $count_items);
+                            $count = mysqli_num_rows($get_result);
+                            ?>
+                            <li data-filter=".filter-specialty">Specialty</li><sup><?php echo $count; ?></sup>
                         </ul>
                     </div>
                 </div>
@@ -136,9 +142,9 @@ include '../backend/dbconnection.php';
                     while ($fetchs = mysqli_fetch_array($execute_staters)) {
                     ?>
                         <div class="col-lg-6 menu-item filter-starters">
-                            <img onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7];?>','<?php echo $name; ?>','<?php echo $phone;?>')" src="../assets/images/<?php echo $fetchs[7];?>" class="menu-img" alt="">
+                            <img onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')" src="../assets/images/<?php echo $fetchs[7]; ?>" class="menu-img" alt="">
                             <div class="menu-content">
-                                <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone;?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>
+                                <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>
                             </div>
                             <div class="menu-ingredients">
                                 <?php
@@ -160,15 +166,16 @@ include '../backend/dbconnection.php';
                     <?php
                     }
                     ?>
-                     <?php
+                    <?php
                     $get_staters = "select *from items where Itemcat='Soups'";
                     $execute_staters = mysqli_query($connection, $get_staters);
                     while ($fetchs = mysqli_fetch_array($execute_staters)) {
                     ?>
                         <div class="col-lg-6 menu-item filter-soups">
-                        <img onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7];?>','<?php echo $name; ?>','<?php echo $phone;?>')" src="../assets/images/<?php echo $fetchs[7];?>" class="menu-img" alt="">
+                            <img onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')" src="../assets/images/<?php echo $fetchs[7]; ?>" class="menu-img" alt="">
                             <div class="menu-content">
-                            <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone;?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>                            </div>
+                                <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>
+                            </div>
                             <div class="menu-ingredients">
                                 <?php
                                 $des = $fetchs[3];
@@ -195,9 +202,10 @@ include '../backend/dbconnection.php';
                     while ($fetchs = mysqli_fetch_array($execute_staters)) {
                     ?>
                         <div class="col-lg-6 menu-item filter-nonveg">
-                        <img onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7];?>','<?php echo $name; ?>','<?php echo $phone;?>')" src="../assets/images/<?php echo $fetchs[7];?>" class="menu-img" alt="">
+                            <img onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')" src="../assets/images/<?php echo $fetchs[7]; ?>" class="menu-img" alt="">
                             <div class="menu-content">
-                            <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone;?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>                            </div>
+                                <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>
+                            </div>
                             <div class="menu-ingredients">
                                 <?php
                                 $des = $fetchs[3];
@@ -224,9 +232,10 @@ include '../backend/dbconnection.php';
                     while ($fetchs = mysqli_fetch_array($execute_staters)) {
                     ?>
                         <div class="col-lg-6 menu-item filter-veg">
-                        <img onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7];?>','<?php echo $name; ?>','<?php echo $phone;?>')" src="../assets/images/<?php echo $fetchs[7];?>" class="menu-img" alt="">
+                            <img onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')" src="../assets/images/<?php echo $fetchs[7]; ?>" class="menu-img" alt="">
                             <div class="menu-content">
-                            <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone;?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>                            </div>
+                                <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>
+                            </div>
                             <div class="menu-ingredients">
                                 <?php
                                 $des = $fetchs[3];
@@ -254,9 +263,10 @@ include '../backend/dbconnection.php';
                     while ($fetchs = mysqli_fetch_array($execute_staters)) {
                     ?>
                         <div class="col-lg-6 menu-item filter-specialty">
-                        <img onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7];?>','<?php echo $name; ?>','<?php echo $phone;?>')" src="../assets/images/<?php echo $fetchs[7];?>" class="menu-img" alt="">
+                            <img onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')" src="../assets/images/<?php echo $fetchs[7]; ?>" class="menu-img" alt="">
                             <div class="menu-content">
-                            <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone;?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>                            </div>
+                                <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>
+                            </div>
                             <div class="menu-ingredients">
                                 <?php
                                 $des = $fetchs[3];
@@ -283,9 +293,10 @@ include '../backend/dbconnection.php';
                     while ($fetchs = mysqli_fetch_array($execute_staters)) {
                     ?>
                         <div class="col-lg-6 menu-item filter-salads">
-                        <img onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7];?>','<?php echo $name; ?>','<?php echo $phone;?>')" src="../assets/images/<?php echo $fetchs[7];?>" class="menu-img" alt="">
+                            <img onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')" src="../assets/images/<?php echo $fetchs[7]; ?>" class="menu-img" alt="">
                             <div class="menu-content">
-                            <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number;?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone;?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>                            </div>
+                                <a style="text-decoration:none;cursor:pointer;color:#cda45e;" onclick="getitem('<?php echo $table_number; ?>','<?php echo $fetchs[0]; ?>','<?php echo $fetchs[2]; ?>','<?php echo $fetchs[4]; ?>','<?php echo $fetchs[5]; ?>','<?php echo $fetchs[6]; ?>','<?php echo $fetchs[7]; ?>','<?php echo $name; ?>','<?php echo $phone; ?>')"><?php echo $fetchs[2]; ?></a><span>&#8377;<?php echo $fetchs[4]; ?></span>
+                            </div>
                             <div class="menu-ingredients">
                                 <?php
                                 $des = $fetchs[3];
@@ -295,7 +306,7 @@ include '../backend/dbconnection.php';
                                     } else {
                                         echo "....";
                                 ?>
-                                   <a onclick="getitemdes('<?php echo $fetchs[3]; ?>','<?php echo $fetchs[2]; ?>')" style="color:#cda45e;text-decoration:none;cursor:pointer;">ReadMore</a>     
+                                        <a onclick="getitemdes('<?php echo $fetchs[3]; ?>','<?php echo $fetchs[2]; ?>')" style="color:#cda45e;text-decoration:none;cursor:pointer;">ReadMore</a>
                                 <?php
                                         break;
                                     }
@@ -331,6 +342,20 @@ include '../backend/dbconnection.php';
                     window.history.pushState(null, "", window.location.href);
                 };
             });
+        </script>
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                }, 'google_translate_element');
+            }
+        </script>
+        <script>
+            function play() {
+                voi('Are You Sure for cancelling your table ?')
+                signout()
+            }
         </script>
 </body>
 

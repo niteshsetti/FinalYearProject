@@ -75,7 +75,6 @@ const getitem = (tableno, itemid, itemname, itemcost, itemquan, itemdate, itemim
   })
 }
 const getitemdes = (itemdes, itemnames) => {
-  console.log(itemdes)
   Swal.fire(
     itemnames,
     itemdes,

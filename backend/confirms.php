@@ -6,6 +6,9 @@ if(isset($_POST["array"]))
     for($i=0;$i<count($a);$i++)
     {
         $can=uniqid();
+        $date = date("d/D/M/Y");
+        date_default_timezone_set('Asia/Kolkata'); 
+        $time=date("h:i:s a");
         $sql="select *from cart where Candid='$a[$i]'";
         $execute=mysqli_query($connection,$sql);
         @$fetch=mysqli_fetch_array($execute);
@@ -21,7 +24,7 @@ if(isset($_POST["array"]))
         $twoo=$fetchd[2];
         $fo=$fetchd[4];
         $seven=$fetchd[7];
-        $insert="insert into confirm(Name,Phno,Tableno,Item,Quantity,Total,Candid,Iimage,Icost,Iname)values('$zero','$one','$two','$three','$four','$five','$can','$seven','$fo','$twoo')";
+        $insert="insert into confirm(Name,Phno,Tableno,Item,Quantity,Total,Candid,Iimage,Icost,Iname,Paymenttype,Status,Orderdate,OrderTime)values('$zero','$one','$two','$three','$four','$five','$can','$seven','$fo','$twoo','NS','NO','--','--')";
         $quer=mysqli_query($connection,$insert);
         if($quer)
         {

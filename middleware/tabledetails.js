@@ -47,6 +47,7 @@ const tabledetails = (rec) => {
 
                                 }
                                 else {
+                                    
                                     let timerInterval
                                     Swal.fire({
                                         title: 'Table Booked Successfully!',

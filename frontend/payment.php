@@ -6,6 +6,7 @@ $sql = "select *from cart where Tableno='$table_numbers'";
 $exec = mysqli_query($connection, $sql);
 $count_items = mysqli_num_rows($exec);
 $items = [];
+$sums = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +42,9 @@ $items = [];
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../middleware/conremov.js"></script>
+    <script src="../middleware//timer.js"></script>
+    <script src="../middleware/signout.js"></script>
+    <script src="../middleware/voice.js"></script>
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
   * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
@@ -48,7 +52,7 @@ $items = [];
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
+</style>
 <body>
 
     <!-- ======= Top Bar ======= -->
@@ -58,6 +62,9 @@ $items = [];
             <div class="contact-info d-flex align-items-center">
                 <i class="bi bi-phone d-flex align-items-center"><span>+91 9032271284</span></i>
                 <i class="bi bi-clock d-flex align-items-center ms-4"><span> Mon-Sat: 11AM - 10PM</span></i>
+            </div>
+            <div class="contact-info d-flex align-items-left">
+                <a onclick="play()"><i class="bi bi-box-arrow-left align-items-center ms-4"><span>Signout</span></i></a>
             </div>
         </div>
     </div>
@@ -82,6 +89,12 @@ $items = [];
 
                 <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
                     <?php
+                    $get_staterss = "select *from confirm where Tableno='$table_numbers' and Status='NO'";
+                    $execute_staterss = mysqli_query($connection, $get_staterss);
+                    while ($fetchss = mysqli_fetch_array($execute_staterss)) {
+                        $fivee = $fetchss[5];
+                        $sums += $fivee;
+                    }
                     $get_staters = "select *from confirm where Tableno='$table_numbers'";
                     $execute_staters = mysqli_query($connection, $get_staters);
                     while ($fetchs = mysqli_fetch_array($execute_staters)) {
@@ -92,25 +105,49 @@ $items = [];
                         $seven = $fetchs[7];
                         $eight = $fetchs[8];
                         $nine = $fetchs[9];
+                        $ten = $fetchs[10];
+                        $eleven = $fetchs[11];
 
 
                     ?>
                         <div class="col-lg-4 menu-item filter-starters" id="garshana">
-                        <div class="form-check">
+                            <?php
+                            if ($ten == "NS" && $eleven == "NO") {
+                            ?>
+                                <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="<?php echo $six; ?>" name="type" checked disabled>
-                        </div>
-                            <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick="remo('<?php echo $three; ?>','<?php echo $six; ?>')"><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
-                            <div class="menu-content">
-                                <a href="#"><?php echo $nine; ?></a><span>&#8377;<?php echo $eight; ?></span>
-                            </div>
-                            <div class="menu-ingredients">
-                                Item Quantity placed : <?php echo $four; ?>
-                            </div>
-                            <div class="menu-ingredients">
-                                Total Item : <span>&#8377; <?php echo $five; ?> </span>
-                            </div>
+                                </div>
+                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick="remo('<?php echo $three; ?>','<?php echo $six; ?>')"><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
+                                <div class="menu-content">
+                                    <a href="#"><?php echo $nine; ?></a><span>&#8377;<?php echo $eight; ?></span>
+                                </div>
+                                <div class="menu-ingredients">
+                                    Item Quantity placed : <?php echo $four; ?>
+                                </div>
+                                <div class="menu-ingredients">
+                                    Total Item : <span>&#8377; <?php echo $five; ?> </span>
+                                </div>
+                            <?php
+                            } else {
+                            ?>
+                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick=""><i class="fa fa-clock-o" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
+                                <div class="menu-content">
+                                    <a href="#"><?php echo $nine; ?></a><span>&#8377;<?php echo $eight; ?></span>
+                                </div>
+                                <div class="menu-ingredients">
+                                    Item Quantity placed : <?php echo $four; ?>
+                                </div>
+                                <div class="menu-ingredients">
+                                    Total Item : <span>&#8377; <?php echo $five; ?> </span>
+                                </div>
+                                <span id='<?php echo $six;?>'></span>
+                               
+                            <?php
+                            }
+                            ?>
                         </div>
                     <?php
+                    
                     }
                     ?>
                 </div>
@@ -131,7 +168,10 @@ $items = [];
 
         <!-- Template Main JS File -->
         <script src="../assets/js/main.js"></script>
+        <input type="hidden" value="<?php echo $sums; ?>" id="sum">
+        <input type="hidden" value="<?php echo $table_numbers; ?>" id="tablenumber">
         <script>
+            var tab = $("#tablenumber").val();
             var checkboxes = $("input[type='checkbox']"),
                 submitButt = $("#click");
 
@@ -139,13 +179,60 @@ $items = [];
                 submitButt.attr("disabled", !checkboxes.is(":checked"));
             });
             $("#click").click(function() {
+                voi("select your payment");
                 var array = [];
                 $("input:checkbox[name=type]:checked").each(function() {
                     array.push($(this).val());
                 });
-                console.log(array);
-                
+                Swal.fire({
+                    title: 'Select Your Payment',
+                    showDenyButton: true,
+                    confirmButtonText: 'Offline-Payment',
+                    denyButtonText: `Online-Payment`,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        voi('You had Selected offline Payment');
+                        var sum = $("#sum").val();
+                        Swal.fire({
+                            title: 'Your Bill is ' + sum,
+                            showDenyButton: true,
+                            confirmButtonText: 'Confirm Payment',
+                            denyButtonText: `Cancel`,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                var payment = "Offline-Payment";
+                                $.ajax({
+                                    url: "../backend/approve.php",
+                                    method: "post",
+                                    async: false,
+                                    data: {
+                                        "array": array,
+                                        "payment": payment
+                                    },
+                                    success: function(data) {
+                                        Swal.fire(
+                                            'Good job!',
+                                            'Your Order Placed Successfully',
+                                            'success'
+                                        )
+                                        setTimeout(function() {
+                                            window.location.replace('payment.php?%20tableno=' + tab)
+                                        }, 1000);
+                                    }
+
+                                });
+                            }
+                        })
+                    }
+                })
             });
+        </script>
+         <script src="../middleware/timer.js"></script>
+         <script>
+            function play(){
+                voi('Are You Sure For Cancelling Your table ?');
+                signout();
+            }
         </script>
 
 </body>
