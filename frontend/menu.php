@@ -1,7 +1,6 @@
 <?php
 include '../backend/tablenumber.php';
 include '../backend/dbconnection.php';
-include '../backend/cartcount.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +35,7 @@ include '../backend/cartcount.php';
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../middleware/signout.js"></script>
     <script src="../middleware/getitem.js"></script>
+    <script src="../middleware/cc.js"></script>
 
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
@@ -67,7 +67,7 @@ include '../backend/cartcount.php';
             <h1 class="logo me-auto me-lg-0">
                 <p style="color:#cda45e;">Check Our Tasty Menu</p>
             </h1>
-            <a href="./order.php? tablenumber=<?php echo $table_number;?>"><i class="bi bi-cart d-flex align-items-center" style="color:#cda45e;font-size:30px;"></i><sub><?php echo $count_items;?></sub></a>
+            <a href="./order.php? tablenumber=<?php echo $table_number;?>"><i class="bi bi-cart d-flex align-items-center" style="color:#cda45e;font-size:30px;"></i><sub id="num"></sub></a>
         </div>
     </header>
     <main id="main">

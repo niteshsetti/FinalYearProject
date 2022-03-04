@@ -14,8 +14,8 @@ const remo=(itemid,skey)=>{
                 method:"post",
                 async:false,
                 data:{
-                 "itemid":itemid,
-                 "skey":skey
+                 "itemids":itemid,
+                 "skeys":skey
                 },
                 success:function(data)
                 {

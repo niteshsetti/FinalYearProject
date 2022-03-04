@@ -1,7 +1,7 @@
 <?php
 include '../backend/dbconnection.php';
 include '../backend/cartsum.php';
-$table_numbers = $_GET["tablenumber"];
+$table_numbers = $_GET["tableno"];
 $sql = "select *from cart where Tableno='$table_numbers'";
 $exec = mysqli_query($connection, $sql);
 $count_items = mysqli_num_rows($exec);
@@ -40,7 +40,7 @@ $items = [];
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../middleware/remove.js"></script>
+    <script src="../middleware/conremov.js"></script>
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
   * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
@@ -65,9 +65,9 @@ $items = [];
         <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
             <h1 class="logo me-auto me-lg-0">
-                <p style="color:#cda45e;">Your Orders's List</p>
+                <p style="color:#cda45e;">Your Confirm List</p>
             </h1>
-            <button type="button" class="btn btn-secondary" id="click" disabled>Confirm Order</button>
+            <button type="button" class="btn btn-secondary" id="click">Confirm Payment</button>
         </div>
     </header>
     <main id="main">
@@ -79,61 +79,38 @@ $items = [];
                     <br>
                     <br>
                 </div>
-                <div class="row" data-aos="fade-up" data-aos-delay="100">
-                    <div class="col-lg-12 d-flex justify-content-center">
-                        <ul id="menu-flters">
-                     <li data-filter="*" class="filter-active">All Orders ( <?php echo $count_items; ?> )</li><a href="./payment.php? tableno=<?php echo $table_numbers;?>"><i class="bi bi-cart3 align-items-center ms-4" style="color:#cda45e;font-size:20px;"></i>
-                        <sub style="font-size:15px;">&#8377; <?php echo $sum;?></sub></a>
-                         <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="checkAll">
-                        <label class="form-check-label" for="flexCheckIndeterminate">
-                                    Select All / Proceed All
-                                </label>
-                        </div>
-                    </ul>
-                    </div>
-                </div>
 
                 <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
                     <?php
-                    $get_staters = "select *from cart where Tableno='$table_numbers'";
+                    $get_staters = "select *from confirm where Tableno='$table_numbers'";
                     $execute_staters = mysqli_query($connection, $get_staters);
                     while ($fetchs = mysqli_fetch_array($execute_staters)) {
-                        $get_item_no = $fetchs[3];
-                        array_push($items, $get_item_no);
-                    }
-                    for ($i = 0; $i < count($items); $i++) {
-                        $iteminf = "select *from items where Itemid='$items[$i]'";
-                        $execute_items = mysqli_query($connection, $iteminf);
-                        $itemquan = "select *from cart where Item='$items[$i]'";
-                        $execute_items_quan = mysqli_query($connection, $itemquan);
-                        @$fetchr = mysqli_fetch_array($execute_items_quan);
-                        $q = $fetchr[4];
-                        $r = $fetchr[5];
-                        $ct = $fetchr[6];
-                        while ($fetchd = mysqli_fetch_array($execute_items)) {
-                            $get_item_name = $fetchd[2];
-                            $image = $fetchd[7];
-                            $rate = $fetchd[4];
-                            $it = $fetchd[0];
+                        $three = $fetchs[3];
+                        $four = $fetchs[4];
+                        $five = $fetchs[5];
+                        $six = $fetchs[6];
+                        $seven = $fetchs[7];
+                        $eight = $fetchs[8];
+                        $nine = $fetchs[9];
+
+
                     ?>
-                            <div class="col-lg-4 menu-item filter-starters" id="garshana">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="<?php echo $ct; ?>" name="type">
-                                </div>
-                                <img src="../assets/images/<?php echo $image; ?>" class="menu-img" alt=""><sub><a onclick="remo('<?php echo $items[$i]; ?>','<?php echo $ct; ?>')"><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
-                                <div class="menu-content">
-                                    <a href="#"><?php echo $get_item_name; ?></a><span>&#8377;<?php echo $rate; ?></span>
-                                </div>
-                                <div class="menu-ingredients">
-                                    Item Quantity placed : <?php echo $q; ?>
-                                </div>
-                                <div class="menu-ingredients">
-                                    Total Item : <span>&#8377; <?php echo $r; ?> </span>
-                                </div>
+                        <div class="col-lg-4 menu-item filter-starters" id="garshana">
+                        <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="<?php echo $six; ?>" name="type" checked disabled>
+                        </div>
+                            <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick="remo('<?php echo $three; ?>','<?php echo $six; ?>')"><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
+                            <div class="menu-content">
+                                <a href="#"><?php echo $nine; ?></a><span>&#8377;<?php echo $eight; ?></span>
                             </div>
+                            <div class="menu-ingredients">
+                                Item Quantity placed : <?php echo $four; ?>
+                            </div>
+                            <div class="menu-ingredients">
+                                Total Item : <span>&#8377; <?php echo $five; ?> </span>
+                            </div>
+                        </div>
                     <?php
-                        }
                     }
                     ?>
                 </div>
@@ -154,12 +131,7 @@ $items = [];
 
         <!-- Template Main JS File -->
         <script src="../assets/js/main.js"></script>
-        <input type="hidden" value="<?php echo $table_numbers; ?>" id="tablenumber">
         <script>
-            var tab=$("#tablenumber").val();
-            $("#checkAll").click(function() {
-                $('input:checkbox').not(this).prop('checked', this.checked);
-            });
             var checkboxes = $("input[type='checkbox']"),
                 submitButt = $("#click");
 
@@ -171,34 +143,8 @@ $items = [];
                 $("input:checkbox[name=type]:checked").each(function() {
                     array.push($(this).val());
                 });
-                Swal.fire({
-                    title: 'Select Your Option',
-                    showDenyButton: true,
-                    confirmButtonText: 'Proceed Payment',
-                    denyButtonText: `Cancel`,
-                }).then((result) => {
-                    if(result.isConfirmed)
-                    {
-                    $.ajax({
-                        url:"../backend/confirms.php",
-                        method:"post",
-                        async:false,
-                        data:{
-                            "array":array
-                        },
-                        success:function(data)
-                        {
-                          window.location.replace('payment.php?%20tableno='+tab)
-                          setTimeout(function(){
-                            $('input:checkbox').not(this).prop('checked', false);
-                          },1000);
-                        }
-                    }); 
-                  }
-                  else{
-                    $('input:checkbox').not(this).prop('checked', false);
-                  }
-                })
+                console.log(array);
+                
             });
         </script>
 
