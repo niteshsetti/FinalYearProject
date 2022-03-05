@@ -63,7 +63,7 @@ const tabledetails = (rec) => {
                                         },
                                         willClose: () => {
                                             clearInterval(timerInterval)
-                                            window.location.assign("menu.php" + "?%20tableno=" + rec);
+                                            window.open("menu.php" + "?%20tableno=" + rec);
                                         }
                                     }).then((result) => {
                                         if (result.dismiss === Swal.DismissReason.timer) {

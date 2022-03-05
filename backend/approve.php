@@ -6,7 +6,7 @@ if(isset($_POST["array"]) || isset($_POST["payment"]))
     $payment=$_POST["payment"];
     $date = date("d/D/M/Y");
     date_default_timezone_set('Asia/Kolkata'); 
-    $time=date("h:i:s a");
+    $time=date("h:i:s");
     for($i=0;$i<count($arr);$i++)
     {
         $candid=$arr[$i];

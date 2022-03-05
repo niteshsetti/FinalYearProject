@@ -6,6 +6,8 @@ $sql = "select *from cart where Tableno='$table_numbers'";
 $exec = mysqli_query($connection, $sql);
 $count_items = mysqli_num_rows($exec);
 $items = [];
+$tim = [];
+$times = [];
 $sums = 0;
 ?>
 <!DOCTYPE html>
@@ -53,6 +55,7 @@ $sums = 0;
   ======================================================== -->
 </head>
 </style>
+
 <body>
 
     <!-- ======= Top Bar ======= -->
@@ -107,8 +110,7 @@ $sums = 0;
                         $nine = $fetchs[9];
                         $ten = $fetchs[10];
                         $eleven = $fetchs[11];
-
-
+                        $thirteen = $fetchs[13];
                     ?>
                         <div class="col-lg-4 menu-item filter-starters" id="garshana">
                             <?php
@@ -130,7 +132,11 @@ $sums = 0;
                             <?php
                             } else {
                             ?>
-                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick=""><i class="fa fa-clock-o" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="<?php echo $six; ?>" name="types" checked disabled style="opacity:0;">
+                                    <input class="form-check-input" type="checkbox" value="<?php echo $thirteen; ?>" name="typess" checked disabled style="opacity:0;">
+                                </div>
+                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick=""><i class="fa fa-clock-o" aria-hidden="true" style="color:#cda45e;" id="co"></i></a></sub>
                                 <div class="menu-content">
                                     <a href="#"><?php echo $nine; ?></a><span>&#8377;<?php echo $eight; ?></span>
                                 </div>
@@ -140,14 +146,14 @@ $sums = 0;
                                 <div class="menu-ingredients">
                                     Total Item : <span>&#8377; <?php echo $five; ?> </span>
                                 </div>
-                                <span id='<?php echo $six;?>'></span>
-                               
+                                <span id='<?php echo $six; ?>'></span>
+
                             <?php
                             }
                             ?>
                         </div>
                     <?php
-                    
+
                     }
                     ?>
                 </div>
@@ -170,7 +176,17 @@ $sums = 0;
         <script src="../assets/js/main.js"></script>
         <input type="hidden" value="<?php echo $sums; ?>" id="sum">
         <input type="hidden" value="<?php echo $table_numbers; ?>" id="tablenumber">
+        <input type="hidden" value="<?php print_r($tim); ?>" id="dep">
         <script>
+            var ti = [];
+            var diff = [];
+            $("input:checkbox[name=types]:checked").each(function() {
+                ti.push($(this).val());
+            });
+            $("input:checkbox[name=typess]:checked").each(function() {
+                diff.push($(this).val());
+            });
+            console.log(diff)
             var tab = $("#tablenumber").val();
             var checkboxes = $("input[type='checkbox']"),
                 submitButt = $("#click");
@@ -227,12 +243,16 @@ $sums = 0;
                 })
             });
         </script>
-         <script src="../middleware/timer.js"></script>
-         <script>
-            function play(){
+        <script src="../middleware/timer.js"></script>
+        <script>
+            function play() {
                 voi('Are You Sure For Cancelling Your table ?');
                 signout();
             }
+        </script>
+        <script>
+
+
         </script>
 
 </body>
