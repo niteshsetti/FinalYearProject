@@ -2,7 +2,7 @@
 include '../backend/dbconnection.php';
 include '../backend/cartsum.php';
 $table_numbers = $_GET["tableno"];
-$sql = "select *from cart where Tableno='$table_numbers'";
+$sql = "select *from confirm where Tableno='$table_numbers'";
 $exec = mysqli_query($connection, $sql);
 $count_items = mysqli_num_rows($exec);
 $items = [];
@@ -54,8 +54,11 @@ $sums = 0;
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+<style>
+    #oop {
+        width: 40em;
+    }
 </style>
-
 <body>
 
     <!-- ======= Top Bar ======= -->
@@ -72,6 +75,10 @@ $sums = 0;
         </div>
     </div>
     <header id="header" class="fixed-top d-flex align-items-center">
+        <?php
+        if($count_items!=0)
+        {
+        ?>
         <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
             <h1 class="logo me-auto me-lg-0">
@@ -243,6 +250,15 @@ $sums = 0;
                 })
             });
         </script>
+        <?php
+        }
+        else{
+        ?>
+        <img id="oop" src="../assets/images/oops.svg" class="img-responsive center-block d-block mx-auto" alt="">
+        <?php
+        }
+        ?>
+    </main>
         <script src="../middleware/timer.js"></script>
         <script>
             function play() {

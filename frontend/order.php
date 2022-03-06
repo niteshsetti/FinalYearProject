@@ -6,7 +6,7 @@ $sql = "select *from cart where Tableno='$table_numbers'";
 $exec = mysqli_query($connection, $sql);
 $count_items = mysqli_num_rows($exec);
 $items = [];
-$candid=[];
+$candid = [];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +51,11 @@ $candid=[];
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+<style>
+    #oop {
+        width: 40em;
+    }
+</style>
 
 <body>
 
@@ -68,13 +73,16 @@ $candid=[];
         </div>
     </div>
     <header id="header" class="fixed-top d-flex align-items-center">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+        <?php
+        if ($count_items != 0) {
+        ?>
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
-            <h1 class="logo me-auto me-lg-0">
-                <p style="color:#cda45e;">Your Orders's List</p>
-            </h1>
-            <button type="button" class="btn btn-secondary" id="click" disabled>Confirm Order</button>
-        </div>
+                <h1 class="logo me-auto me-lg-0">
+                    <p style="color:#cda45e;">Your Orders's List</p>
+                </h1>
+                <button class="btn btn-secondary" id="click" disabled>Confirm Order</button>
+            </div>
     </header>
     <main id="main">
         <!-- ======= Menu Section ======= -->
@@ -88,15 +96,15 @@ $candid=[];
                 <div class="row" data-aos="fade-up" data-aos-delay="100">
                     <div class="col-lg-12 d-flex justify-content-center">
                         <ul id="menu-flters">
-                     <li data-filter="*" class="filter-active">All Orders ( <?php echo $count_items; ?> )</li><a href="./payment.php? tableno=<?php echo $table_numbers;?>"><i class="bi bi-cart3 align-items-center ms-4" style="color:#cda45e;font-size:20px;"></i>
-                        <sub style="font-size:15px;">&#8377; <?php echo $sum;?></sub></a>
-                         <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="checkAll">
-                        <label class="form-check-label" for="flexCheckIndeterminate">
+                            <li data-filter="*" class="filter-active">All Orders ( <?php echo $count_items; ?> )</li><a href="./payment.php? tableno=<?php echo $table_numbers; ?>"><i class="bi bi-cart3 align-items-center ms-4" style="color:#cda45e;font-size:20px;"></i>
+                                <sub style="font-size:15px;">&#8377; <?php echo $sum; ?></sub></a>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="checkAll">
+                                <label class="form-check-label" for="flexCheckIndeterminate">
                                     Select All / Proceed All
                                 </label>
-                        </div>
-                    </ul>
+                            </div>
+                        </ul>
                     </div>
                 </div>
 
@@ -106,7 +114,7 @@ $candid=[];
                     $execute_staters = mysqli_query($connection, $get_staters);
                     while ($fetchs = mysqli_fetch_array($execute_staters)) {
                         $get_item_no = $fetchs[3];
-                        $can=$fetchs[6];
+                        $can = $fetchs[6];
                         array_push($items, $get_item_no);
                         array_push($candid, $can);
                     }
@@ -164,7 +172,7 @@ $candid=[];
         <script src="../assets/js/main.js"></script>
         <input type="hidden" value="<?php echo $table_numbers; ?>" id="tablenumber">
         <script>
-            var tab=$("#tablenumber").val();
+            var tab = $("#tablenumber").val();
             $("#checkAll").click(function() {
                 $('input:checkbox').not(this).prop('checked', this.checked);
             });
@@ -186,38 +194,42 @@ $candid=[];
                     confirmButtonText: 'Proceed Payment',
                     denyButtonText: `Cancel`,
                 }).then((result) => {
-                    if(result.isConfirmed)
-                    {
-                    voi('You had Selected Proceed Payment');
-                    $.ajax({
-                        url:"../backend/confirms.php",
-                        method:"post",
-                        async:false,
-                        data:{
-                            "array":array
-                        },
-                        success:function(data)
-                        {
-                          window.location.replace('payment.php?%20tableno='+tab)
-                          setTimeout(function(){
-                            $('input:checkbox').not(this).prop('checked', false);
-                          },1000);
-                        }
-                    }); 
-                  }
-                  else{
-                    $('input:checkbox').not(this).prop('checked', false);
-                  }
+                    if (result.isConfirmed) {
+                        voi('You had Selected Proceed Payment');
+                        $.ajax({
+                            url: "../backend/confirms.php",
+                            method: "post",
+                            async: false,
+                            data: {
+                                "array": array
+                            },
+                            success: function(data) {
+                                window.location.replace('payment.php?%20tableno=' + tab)
+                                setTimeout(function() {
+                                    $('input:checkbox').not(this).prop('checked', false);
+                                }, 1000);
+                            }
+                        });
+                    } else {
+                        $('input:checkbox').not(this).prop('checked', false);
+                    }
                 })
             });
         </script>
-        <script>
-            function play(){
-                voi('Are You Sure For Cancelling Your table ?');
-                signout();
-            }
-        </script>
-
+    <?php
+        } else {
+    ?>
+        <img id="oop" src="../assets/images/oops.svg" class="img-responsive center-block d-block mx-auto" alt="">
+    <?php
+        }
+    ?>
+    </main>
+    <script>
+        function play() {
+            voi('Are You Sure For Cancelling Your table ?');
+            signout();
+        }
+    </script>
 </body>
 
 </html>

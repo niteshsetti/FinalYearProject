@@ -7,7 +7,9 @@ if(isset($_POST["tablenumber"]))
     $qu=mysqli_query($connection,$del);
     $delcart="delete from cart where Tableno='$tab_num'";
     $qu1=mysqli_query($connection,$delcart);
-    if($qu && $qu1)
+    $delconfirm="delete from confirm where Tableno='$tab_num'";
+    $qu2=mysqli_query($connection,$delconfirm);
+    if($qu && $qu1 && $qu2)
     {
         echo "Success";
     }
