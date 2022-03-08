@@ -130,8 +130,8 @@ $count_it = mysqli_num_rows($execs);
                         $eleven = $fetchs[11];
                         $thirteen = $fetchs[13];
                         $dt = $fetchs[14];
-                        $ts=$fetchs[15];
-                        $stt=strtotime($ts);
+                        $ts = $fetchs[15];
+                        $stt = strtotime($ts);
                     ?>
                         <div class="col-lg-4 menu-item filter-starters" id="garshana">
                             <?php
@@ -157,7 +157,7 @@ $count_it = mysqli_num_rows($execs);
                                     <input class="form-check-input" type="checkbox" value="<?php echo $six; ?>" name="types" checked disabled style="opacity:0;">
                                     <input class="form-check-input" type="checkbox" value="<?php echo $thirteen; ?>" name="typess" checked disabled style="opacity:0;">
                                 </div>
-                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick=""><i class="fa fa-clock-o" aria-hidden="true" style="color:#cda45e;" id='<?php echo $six;?>'></i></a></sub>
+                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick=""><i class="fa fa-clock-o" aria-hidden="true" style="color:#cda45e;" id='<?php echo $six; ?>'></i></a></sub>
                                 <div class="menu-content">
                                     <a href="#"><?php echo $nine; ?></a><span>&#8377;<?php echo $eight; ?></span>
                                 </div>
@@ -176,7 +176,7 @@ $count_it = mysqli_num_rows($execs);
                                         ?>
                                     </span>
                                 </div>
-                                <span id="<?php echo $six;?>"></span>
+                                <span id="<?php echo $six; ?>"></span>
 
                             <?php
                             }
@@ -270,6 +270,10 @@ $count_it = mysqli_num_rows($execs);
                                 });
                             }
                         })
+                    } else {
+                        voi('You had Selected online Payment');
+                        var payment = "Online-Payment";
+                        window.location.replace('onlinepayment.php');
                     }
                 })
             });

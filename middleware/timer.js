@@ -14,7 +14,7 @@ function call(k) {
             },
             success: function (data) {
                 $("#" + k).text(data);
-                if(data === "TIME UP!")
+                if(data === "----Time Up")
                 {
                     document.getElementById(k).style.color="red";
                 }
