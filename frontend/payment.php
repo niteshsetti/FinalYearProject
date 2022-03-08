@@ -9,6 +9,9 @@ $items = [];
 $tim = [];
 $times = [];
 $sums = 0;
+$sq = "select *from confirm where Tableno='$table_numbers' and Status='NO'";
+$execs = mysqli_query($connection, $sq);
+$count_it = mysqli_num_rows($execs);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,6 +50,7 @@ $sums = 0;
     <script src="../middleware//timer.js"></script>
     <script src="../middleware/signout.js"></script>
     <script src="../middleware/voice.js"></script>
+    <script src="../middleware/tim.js"></script>
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
   * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
@@ -59,6 +63,7 @@ $sums = 0;
         width: 40em;
     }
 </style>
+
 <body>
 
     <!-- ======= Top Bar ======= -->
@@ -76,28 +81,34 @@ $sums = 0;
     </div>
     <header id="header" class="fixed-top d-flex align-items-center">
         <?php
-        if($count_items!=0)
-        {
+        if ($count_items != 0) {
         ?>
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+            <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
-            <h1 class="logo me-auto me-lg-0">
-                <p style="color:#cda45e;">Your Confirm List</p>
-            </h1>
-            <button type="button" class="btn btn-secondary" id="click">Confirm Payment</button>
-        </div>
+                <h1 class="logo me-auto me-lg-0">
+                    <p style="color:#cda45e;">Your Confirm List</p>
+                </h1>
+                <?php
+                if ($count_it > 0) {
+                ?>
+                    <button type="button" class="btn btn-secondary" id="click">Confirm Payment</button>
+                <?php
+                } else {
+                ?>
+
+                <?php
+                }
+                ?>
+            </div>
     </header>
     <main id="main">
         <!-- ======= Menu Section ======= -->
         <section id="menu" class="menu section-bg">
+            <div>
+                <br>
+            </div>
             <div class="container" data-aos="fade-up">
-
-                <div class="section-title">
-                    <br>
-                    <br>
-                </div>
-
-                <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
+                <div class="row menu-container" data-aos="fade-up" data-aos-delay="200" disabled>
                     <?php
                     $get_staterss = "select *from confirm where Tableno='$table_numbers' and Status='NO'";
                     $execute_staterss = mysqli_query($connection, $get_staterss);
@@ -118,6 +129,9 @@ $sums = 0;
                         $ten = $fetchs[10];
                         $eleven = $fetchs[11];
                         $thirteen = $fetchs[13];
+                        $dt = $fetchs[14];
+                        $ts=$fetchs[15];
+                        $stt=strtotime($ts);
                     ?>
                         <div class="col-lg-4 menu-item filter-starters" id="garshana">
                             <?php
@@ -143,7 +157,7 @@ $sums = 0;
                                     <input class="form-check-input" type="checkbox" value="<?php echo $six; ?>" name="types" checked disabled style="opacity:0;">
                                     <input class="form-check-input" type="checkbox" value="<?php echo $thirteen; ?>" name="typess" checked disabled style="opacity:0;">
                                 </div>
-                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick=""><i class="fa fa-clock-o" aria-hidden="true" style="color:#cda45e;" id="co"></i></a></sub>
+                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick=""><i class="fa fa-clock-o" aria-hidden="true" style="color:#cda45e;" id='<?php echo $six;?>'></i></a></sub>
                                 <div class="menu-content">
                                     <a href="#"><?php echo $nine; ?></a><span>&#8377;<?php echo $eight; ?></span>
                                 </div>
@@ -153,7 +167,16 @@ $sums = 0;
                                 <div class="menu-ingredients">
                                     Total Item : <span>&#8377; <?php echo $five; ?> </span>
                                 </div>
-                                <span id='<?php echo $six; ?>'></span>
+                                <div class="menu-ingredients">Ordered on : <?php echo $thirteen; ?></div>
+                                <div class="menu-ingredients">
+                                    <span id='timer'>
+                                        Expected Deliver :
+                                        <?php
+                                        echo $dt;
+                                        ?>
+                                    </span>
+                                </div>
+                                <span id="<?php echo $six;?>"></span>
 
                             <?php
                             }
@@ -193,6 +216,7 @@ $sums = 0;
             $("input:checkbox[name=typess]:checked").each(function() {
                 diff.push($(this).val());
             });
+            console.log(ti)
             console.log(diff)
             var tab = $("#tablenumber").val();
             var checkboxes = $("input[type='checkbox']"),
@@ -250,26 +274,25 @@ $sums = 0;
                 })
             });
         </script>
-        <?php
-        }
-        else{
-        ?>
+    <?php
+        } else {
+    ?>
         <img id="oop" src="../assets/images/oops.svg" class="img-responsive center-block d-block mx-auto" alt="">
-        <?php
+    <?php
         }
-        ?>
+    ?>
     </main>
-        <script src="../middleware/timer.js"></script>
-        <script>
-            function play() {
-                voi('Are You Sure For Cancelling Your table ?');
-                signout();
-            }
-        </script>
-        <script>
+    <script src="../middleware/timer.js"></script>
+    <script>
+        function play() {
+            voi('Are You Sure For Cancelling Your table ?');
+            signout();
+        }
+    </script>
+    <script>
 
 
-        </script>
+    </script>
 
 </body>
 

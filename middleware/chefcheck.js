@@ -1,18 +1,16 @@
 function cartcount(){
     $(document).ready(function(){
-        cartcount()
-        var tabno=$("#tablenumber").val();
         $.ajax({
-            url:"../backend/cartcount.php",
+            url:"../backend/chefview.php",
             method:"post",
             async:false,
+            paging:false,
             data:{
                 "fetch":1,
-                "tabno":tabno
             },
             success:function(data)
             {
-                $("#num").text(data);
+                $("#num").html(data);
             }
         });
     });

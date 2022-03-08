@@ -1,29 +1,28 @@
-function countdown(elementName, minutes, seconds) {
-    var element, endTime, hours, mins, msLeft, time;
-
-    function twoDigits(n) {
-        return (n <= 9 ? "0" + n : n);
+function call(k) {
+    $(document).ready(function () {
+        setInterval(timestamp, 1000);
+    });
+        function timestamp()
+        {
+        $.ajax({
+            url: '../backend/updatetime.php',
+            method: "post",
+            async: false,
+            data: {
+                "fetch": 1,
+                "cand": k
+            },
+            success: function (data) {
+                $("#" + k).text(data);
+                if(data === "TIME UP!")
+                {
+                    document.getElementById(k).style.color="red";
+                }
+            }
+        });
     }
-
-    function updateTimer() {
-        msLeft = endTime - (+new Date);
-        if (msLeft < 1000) {
-            element.innerHTML = "Time is up!";
-            document.getElementById(elementName).style.color="red";
-        } else {
-            time = new Date(msLeft);
-            hours = time.getUTCHours();
-            mins = time.getUTCMinutes();
-            element.innerHTML = (hours ? hours + ':' + twoDigits(mins) : mins) + ':' + twoDigits(time.getUTCSeconds());
-            setTimeout(updateTimer, time.getUTCMilliseconds() + 500);
-        }
-    }
-
-    element = document.getElementById(elementName);
-    endTime = (+new Date) + 1000 * (60 * minutes + seconds) + 500;
-    updateTimer();
 }
 for (i = 0; i < ti.length; i++) {
-    countdown(ti[i], 1, 0);
+    var k = ti[i];
+    call(k)
 }
-
