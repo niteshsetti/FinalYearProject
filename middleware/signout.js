@@ -41,7 +41,7 @@ function signout() {
         },
         success: function (data) {
           if (data === "Success") {
-            window.location.href = "http://localhost/FinalYearProject/frontend/index.php";
+            window.close();
           }
           else {
             alert("Failed");

@@ -140,7 +140,7 @@ const tabledisable = (recno,Dates, Time) => {
                                         },
                                         willClose: () => {
                                             clearInterval(timerInterval)
-                                            window.location.assign("menu.php" + "?%20tableno=" + recno);
+                                            window.open("menu.php" + "?%20tableno=" + recno);
                                         }
                                     }).then((result) => {
                                         if (result.dismiss === Swal.DismissReason.timer) {

@@ -38,12 +38,17 @@ $candid = [];
 
     <!-- Template Main CSS File -->
     <link href="../assets/css/style.css" rel="stylesheet">
+    <!-- Include the Dark theme -->
+    <link rel="stylesheet" href="@sweetalert2/theme-dark/dark.css">
+
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../middleware/remove.js"></script>
     <script src="../middleware/signout.js"></script>
     <script src="../middleware/voice.js"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
   * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
@@ -137,7 +142,7 @@ $candid = [];
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="<?php echo $ct; ?>" name="type">
                                 </div>
-                                <img src="../assets/images/<?php echo $image; ?>" class="menu-img" alt=""><sub><a onclick="remo('<?php echo $items[$i]; ?>','<?php echo $ct; ?>','<?php echo $get_item_name;?>')"><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
+                                <img src="../assets/images/<?php echo $image; ?>" class="menu-img" alt=""><sub><a onclick="remo('<?php echo $items[$i]; ?>','<?php echo $ct; ?>','<?php echo $get_item_name; ?>')"><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
                                 <div class="menu-content">
                                     <a href="#"><?php echo $get_item_name; ?></a><span>&#8377;<?php echo $rate; ?></span>
                                 </div>
