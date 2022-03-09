@@ -137,7 +137,7 @@ $candid = [];
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="<?php echo $ct; ?>" name="type">
                                 </div>
-                                <img src="../assets/images/<?php echo $image; ?>" class="menu-img" alt=""><sub><a onclick="remo('<?php echo $items[$i]; ?>','<?php echo $ct; ?>')"><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
+                                <img src="../assets/images/<?php echo $image; ?>" class="menu-img" alt=""><sub><a onclick="remo('<?php echo $items[$i]; ?>','<?php echo $ct; ?>','<?php echo $get_item_name;?>')"><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
                                 <div class="menu-content">
                                     <a href="#"><?php echo $get_item_name; ?></a><span>&#8377;<?php echo $rate; ?></span>
                                 </div>
