@@ -140,7 +140,7 @@ $count_it = mysqli_num_rows($execs);
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="<?php echo $six; ?>" name="type" checked disabled>
                                 </div>
-                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick="remo('<?php echo $three; ?>','<?php echo $six; ?>','<?php echo $nine;?>')"><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
+                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick="remo('<?php echo $three; ?>','<?php echo $six; ?>','<?php echo $nine; ?>')"><i class="fa fa-minus-circle" aria-hidden="true" style="color:#cda45e;"></i></a></sub>
                                 <div class="menu-content">
                                     <a href="#"><?php echo $nine; ?></a><span>&#8377;<?php echo $eight; ?></span>
                                 </div>
@@ -281,11 +281,11 @@ $count_it = mysqli_num_rows($execs);
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 var payment = "Online-Payment";
-                                window.location.replace('onlinepayment.php?%20total='+sum);
-                                
+                                window.location.replace('onlinepayment.php?%20total=' + sum);
+
                             }
                         })
-                       
+
                     }
                 })
             });
