@@ -62,6 +62,7 @@ $count = mysqli_num_rows($infe);
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../middleware/managergettables.js"></script>
     <script src="../middleware/manent.js"></script>
+    <script src="../middleware/mremove.js"></script>
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
   * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
@@ -113,7 +114,7 @@ $count = mysqli_num_rows($infe);
                             </tr>
                             <tr>
                                 <th scope="row">Table Status</th>
-                                <td><button type="button" class="btn btn-danger">Vacate</button></td>
+                                <td><a type="button" class="btn btn-danger" onclick="execute('<?php echo $get_num;?>')">Vacate</a></td>
                             </tr>
                         </tbody>
                     </table>
