@@ -95,7 +95,7 @@ $count_it = mysqli_num_rows($execs);
                 <?php
                 } else {
                 ?>
-
+                    
                 <?php
                 }
                 ?>
@@ -131,6 +131,7 @@ $count_it = mysqli_num_rows($execs);
                         $thirteen = $fetchs[13];
                         $dt = $fetchs[14];
                         $ts = $fetchs[15];
+                        $dstat=$fetchs[16];
                         $stt = strtotime($ts);
                     ?>
                         <div class="col-lg-4 menu-item filter-starters" id="garshana">
@@ -157,7 +158,12 @@ $count_it = mysqli_num_rows($execs);
                                     <input class="form-check-input" type="checkbox" value="<?php echo $six; ?>" name="types" checked disabled style="opacity:0;">
                                     <input class="form-check-input" type="checkbox" value="<?php echo $thirteen; ?>" name="typess" checked disabled style="opacity:0;">
                                 </div>
-                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt=""><a onclick=""><i class="fa fa-clock-o" aria-hidden="true" style="color:#cda45e;" id='<?php echo $six; ?>'></i></a></sub>
+                                <img src="../assets/images/<?php echo $seven; ?>" class="menu-img" alt="">
+
+                                <a id='cool<?php echo $six;?>'>
+                                <i class="fa fa-clock-o" aria-hidden="true" style="color:#cda45e;" id='<?php echo $six; ?>'></i>
+                                </a>
+                               </sub>
                                 <div class="menu-content">
                                     <a href="#"><?php echo $nine; ?></a><span>&#8377;<?php echo $eight; ?></span>
                                 </div>
@@ -177,6 +183,7 @@ $count_it = mysqli_num_rows($execs);
                                     </span>
                                 </div>
                                 <span id="<?php echo $six; ?>"></span>
+                                <input type="hidden" value='<?php echo $table_numbers;?>' id="tabno">
 
                             <?php
                             }

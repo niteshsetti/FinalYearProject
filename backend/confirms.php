@@ -24,7 +24,7 @@ if(isset($_POST["array"]))
         $twoo=$fetchd[2];
         $fo=$fetchd[4];
         $seven=$fetchd[7];
-        $insert="insert into confirm(Name,Phno,Tableno,Item,Quantity,Total,Candid,Iimage,Icost,Iname,Paymenttype,Status,Orderdate,OrderTime,Dtime,TS)values('$zero','$one','$two','$three','$four','$five','$can','$seven','$fo','$twoo','NS','NO','--','--','--','Approved')";
+        $insert="insert into confirm(Name,Phno,Tableno,Item,Quantity,Total,Candid,Iimage,Icost,Iname,Paymenttype,Status,Orderdate,OrderTime,Dtime,TS,Deliverystat,Est)values('$zero','$one','$two','$three','$four','$five','$can','$seven','$fo','$twoo','NS','NO','--','--','--','Approved','Not-Delivered','--')";
         $quer=mysqli_query($connection,$insert);
         if($quer)
         {

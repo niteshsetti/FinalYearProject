@@ -14,7 +14,7 @@ const getitem = (tableno, itemid, itemname, itemcost, itemquan, itemdate, itemim
   }).then((result) => {
     if (result.isConfirmed) {
       (async () => {
-
+        voi("Please Select Quantity");
         const { value: fruit } = await Swal.fire({
           title: 'Select Qauntity',
           input: 'select',
@@ -57,6 +57,7 @@ const getitem = (tableno, itemid, itemname, itemcost, itemquan, itemdate, itemim
               console.log(data)
               if(data==="Success")
               {
+                voi("Item Added to Cart Successfully")
                 Swal.fire({
                   position: 'center',
                   icon: 'success',

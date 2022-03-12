@@ -8,7 +8,7 @@ if(isset($_POST["array"]) || isset($_POST["payment"]))
     date_default_timezone_set('Asia/Kolkata'); 
     $time=date("h:i");
     $endTime = strtotime("+2 minutes", strtotime($time));
-    $ed=date('h : i', $endTime);
+    $ed=date('h:i', $endTime);
     for($i=0;$i<count($arr);$i++)
     {
         $candid=$arr[$i];

@@ -63,6 +63,7 @@ $count = mysqli_num_rows($infe);
     <script src="../middleware/managergettables.js"></script>
     <script src="../middleware/manent.js"></script>
     <script src="../middleware/mremove.js"></script>
+    <script src="../middleware/maniteup.js"></script>
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
   * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
@@ -83,6 +84,10 @@ $count = mysqli_num_rows($infe);
 
     #oop {
         width: 40em;
+    }
+
+    th {
+        color: #cda45e;
     }
 </style>
 
@@ -110,11 +115,11 @@ $count = mysqli_num_rows($infe);
                             </tr>
                             <tr>
                                 <th scope="row">Tableno</th>
-                                <td><?php echo $fe[3]; ?></td>
+                                <td><?php echo $fe[3]; ?>(<?php echo $fe[2]; ?>)</td>
                             </tr>
                             <tr>
                                 <th scope="row">Table Status</th>
-                                <td><a type="button" class="btn btn-danger" onclick="execute('<?php echo $get_num;?>')">Vacate</a></td>
+                                <td><a type="button" class="btn btn-success" onclick="execute('<?php echo $get_num; ?>')">Vacate</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -128,11 +133,14 @@ $count = mysqli_num_rows($infe);
                                 <th>Status</th>
                                 <th>OrderTime</th>
                                 <th>DeliveryTime</th>
+                                <th>Delivery Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             while ($fetch = mysqli_fetch_array($execute)) {
+                                $tableno = $fetch[2];
+                                $candid = $fetch[6];
                             ?>
                                 <tr>
                                     <td><?php echo $fetch[9]; ?></td>
@@ -142,6 +150,20 @@ $count = mysqli_num_rows($infe);
                                     <td><?php echo $fetch[11]; ?></td>
                                     <td><?php echo $fetch[13]; ?></td>
                                     <td><?php echo $fetch[14]; ?></td>
+                                    <td>
+                                        <?php
+                                        if ($fetch[16] != "Delivered") {
+                                        ?>
+                                            <a onclick="update('<?php echo $tableno; ?>','<?php echo $candid; ?>')" style="cursor:pointer;"><?php echo $fetch[16]; ?></a>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <a style="color:green;"><?php echo $fetch[16]; ?></a>&ensp;<i class="fas fa-check-circle"></i>
+                                        <?php
+                                        }
+                                        ?>
+                                    </td>
+
                                 </tr>
                             <?php
                             }

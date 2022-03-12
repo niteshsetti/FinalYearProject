@@ -38,6 +38,7 @@ include '../backend/bookingstat.php';
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <script src="../middleware/tabledetails.js"></script>
+  <script src="../middleware/voice.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0

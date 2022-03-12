@@ -1,8 +1,9 @@
 const tabledetails = (rec) => {
     $(document).ready(function () {
+        voi('Are You Sure For Confirming to Book a table in this Restuarant ?');
         Swal.fire({
             title: 'Are you sure?',
-            text: "For Confirming to Book a table in this Restuatrant ?",
+            text: "For Confirming to Book a table in this Restuarant ?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -10,6 +11,7 @@ const tabledetails = (rec) => {
             confirmButtonText: 'Enter'
         }).then((result) => {
             if (result.isConfirmed) {
+                voi("Enter Your Details to book a table")
                 Swal.fire({
                     title: 'Enter Your Details',
                     html: `<input type="text" id="name" class="swal2-input" placeholder="Enter Your Name">
@@ -49,6 +51,7 @@ const tabledetails = (rec) => {
                                 else {
                                     
                                     let timerInterval
+                                    voi('Your table Booked Successfully');
                                     Swal.fire({
                                         title: 'Table Booked Successfully!',
                                         html: 'Redirect in <b></b> milliseconds.',
