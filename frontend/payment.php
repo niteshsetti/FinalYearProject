@@ -261,7 +261,7 @@ $count_it = mysqli_num_rows($execs);
                                     async: false,
                                     data: {
                                         "array": array,
-                                        "payment": payment
+                                        "payment": payment,
                                     },
                                     success: function(data) {
                                         Swal.fire(

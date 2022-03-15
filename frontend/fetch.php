@@ -1,8 +1,14 @@
 <?php
 include '../backend/dbconnection.php';
 $get_num = $_GET["tab"];
+$sum = 0;
 $sql = "select *from confirm where Tableno='$get_num'";
 $execute = mysqli_query($connection, $sql);
+$sqld = "select *from confirm where Tableno='$get_num'";
+$executed = mysqli_query($connection, $sqld);
+while ($cool = mysqli_fetch_array($executed)) {
+    $sum = $sum + $cool[5];
+}
 $inf = "select *from tablereservation where Tableno='$get_num'";
 $infe = mysqli_query($connection, $inf);
 @$fe = mysqli_fetch_array($infe);
@@ -118,6 +124,14 @@ $count = mysqli_num_rows($infe);
                                 <td><?php echo $fe[3]; ?>(<?php echo $fe[2]; ?>)</td>
                             </tr>
                             <tr>
+                                <th scope="row">Bill</th>
+                                <td>&#8377; <?php echo $sum; ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Bill-Status</th>
+                                <td><?php echo "Not Paid"; ?></td>
+                            </tr>
+                            <tr>
                                 <th scope="row">Table Status</th>
                                 <td><a type="button" class="btn btn-success" onclick="execute('<?php echo $get_num; ?>')">Vacate</a></td>
                             </tr>
@@ -154,7 +168,7 @@ $count = mysqli_num_rows($infe);
                                         <?php
                                         if ($fetch[16] != "Delivered") {
                                         ?>
-                                            <a onclick="update('<?php echo $tableno; ?>','<?php echo $candid; ?>')" style="cursor:pointer;"><?php echo $fetch[16]; ?></a>
+                                            <a style="color:red;cursor:pointer;" onclick="update('<?php echo $tableno; ?>','<?php echo $candid; ?>')"><?php echo $fetch[16]; ?></a>
                                         <?php
                                         } else {
                                         ?>
