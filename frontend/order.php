@@ -86,7 +86,7 @@ $candid = [];
                 <h1 class="logo me-auto me-lg-0">
                     <p style="color:#cda45e;">Your Orders's List</p>
                 </h1>
-                <button class="btn btn-secondary" id="click" disabled>Confirm Order</button>
+                <a class="btn btn-secondary" id="click" class="disabled">Confirm Order</a>
             </div>
     </header>
     <main id="main">
@@ -177,15 +177,22 @@ $candid = [];
         <script src="../assets/js/main.js"></script>
         <input type="hidden" value="<?php echo $table_numbers; ?>" id="tablenumber">
         <script>
+            if ($("#click").is(":visible")) {
+                $("#click").hide();
+            }
             var tab = $("#tablenumber").val();
             $("#checkAll").click(function() {
                 $('input:checkbox').not(this).prop('checked', this.checked);
             });
-            var checkboxes = $("input[type='checkbox']"),
-                submitButt = $("#click");
+            var checkboxes = $("input[type='checkbox']")
 
             checkboxes.click(function() {
-                submitButt.attr("disabled", !checkboxes.is(":checked"));
+                if ($("input[type='checkbox']").is(":checked")) {
+                    $("#click").show();
+                } else {
+                    $("#click").hide();
+                }
+
             });
             $("#click").click(function() {
                 voi("select your option");
@@ -217,6 +224,7 @@ $candid = [];
                         });
                     } else {
                         $('input:checkbox').not(this).prop('checked', false);
+                        $("#click").hide()
                     }
                 })
             });
@@ -235,6 +243,14 @@ $candid = [];
             signout();
         }
     </script>
+      <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                }, 'google_translate_element');
+            }
+        </script>
 </body>
 
 </html>

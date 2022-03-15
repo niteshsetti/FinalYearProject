@@ -92,6 +92,7 @@ const tabledetails = (rec) => {
     });
 }
 const tabledisable = (recno,Dates, Time) => {
+    voi('Table Already Reserved !!')
     $(document).ready(function () {
         Swal.fire({
             title: 'Table  Reserved At ' + Time,
@@ -103,6 +104,7 @@ const tabledisable = (recno,Dates, Time) => {
             confirmButtonText: 'Take me to Table'
         }).then((result) => {
             if (result.isConfirmed) {
+                voi('Enter Your Phonenumber')
                 Swal.fire({
                     title: 'Enter Your Phonenumber',
                     html: `<input type="text" id="phnocheck" class="swal2-input" placeholder="Enter Your Mobile">`,
@@ -128,6 +130,7 @@ const tabledisable = (recno,Dates, Time) => {
                             success: function (data) {
                                 if(data==="Success")
                                 {
+                                    voi('Taking to Your Table!')
                                     let timerInterval
                                     Swal.fire({
                                         title: 'Taking to Your Table!',
@@ -152,6 +155,7 @@ const tabledisable = (recno,Dates, Time) => {
                                     })
                                 }
                                 else{
+                                    voi('You are not Table member!')
                                     Swal.fire({
                                         icon: 'error',
                                         title: 'Oops...',

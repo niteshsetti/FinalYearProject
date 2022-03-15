@@ -57,11 +57,11 @@ const getitem = (tableno, itemid, itemname, itemcost, itemquan, itemdate, itemim
               console.log(data)
               if(data==="Success")
               {
-                voi("Item Added to Cart Successfully")
+                voi(itemname+" Added to Cart Successfully")
                 Swal.fire({
                   position: 'center',
                   icon: 'success',
-                  title: 'Item Added to Cart Successfully',
+                  title: itemname+' Added to Cart Successfully',
                   showConfirmButton: false,
                   timer: 1500
                 })

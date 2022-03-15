@@ -42,6 +42,7 @@ $count_it = mysqli_num_rows($execs);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Template Main CSS File -->
+    
     <link href="../assets/css/style.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -51,6 +52,7 @@ $count_it = mysqli_num_rows($execs);
     <script src="../middleware/signout.js"></script>
     <script src="../middleware/voice.js"></script>
     <script src="../middleware/tim.js"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
   * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
@@ -312,6 +314,14 @@ $count_it = mysqli_num_rows($execs);
             signout();
         }
     </script>
+    <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                }, 'google_translate_element');
+            }
+        </script>
     <script>
 
 
