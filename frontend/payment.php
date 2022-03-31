@@ -52,6 +52,7 @@ $count_it = mysqli_num_rows($execs);
     <script src="../middleware/signout.js"></script>
     <script src="../middleware/voice.js"></script>
     <script src="../middleware/tim.js"></script>
+    <script src="../middleware/feedback.js"></script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
@@ -97,7 +98,7 @@ $count_it = mysqli_num_rows($execs);
                 <?php
                 } else {
                 ?>
-                    
+                     <a onclick="feedback()"><p style="color:#cda45e;">Feedback</p></a>
                 <?php
                 }
                 ?>
@@ -290,7 +291,7 @@ $count_it = mysqli_num_rows($execs);
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 var payment = "Online-Payment";
-                                window.location.replace('onlinepayment.php?%20total=' + sum);
+                                window.location.replace('onlinepayment.php?%20total=' + array);
 
                             }
                         })

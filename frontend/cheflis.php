@@ -1,19 +1,8 @@
 <?php
 include '../backend/dbconnection.php';
-$get_num = $_GET["tab"];
-$sum = 0;
-$sql = "select *from confirm where Tableno='$get_num'";
+$sql = "select * from confirm ORDER BY Tableno DESC";
 $execute = mysqli_query($connection, $sql);
-$sqld = "select *from confirm where Tableno='$get_num'";
-$executed = mysqli_query($connection, $sqld);
-while ($cool = mysqli_fetch_array($executed)) {
-    $sum = $sum + $cool[5];
-}
-$sqldd = "select *from confirm where Tableno='$get_num'";
-$executedd = mysqli_query($connection, $sqldd);
-@$fee = mysqli_fetch_array($executedd);
-@$pay_status=$fee[10];
-$inf = "select *from tablereservation where Tableno='$get_num'";
+$inf = "select *from tablereservation";
 $infe = mysqli_query($connection, $inf);
 @$fe = mysqli_fetch_array($infe);
 $count = mysqli_num_rows($infe);
@@ -107,59 +96,19 @@ $count = mysqli_num_rows($infe);
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
-                    <h2>Manager-panel</h2>
-                    <p>Table Status</p>
+                    <h2>Chef-panel</h2>
+                    <p>Order Status</p>
                 </div>
                 <?php
                 if ($count != 0) {
                 ?>
-                    <table class="table table-bordered" style="width:50%">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Name</th>
-                                <td><?php echo $fe[0]; ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Phno</th>
-                                <td><?php echo $fe[1]; ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Tableno</th>
-                                <td><?php echo $fe[3]; ?>(<?php echo $fe[2]; ?>)</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Bill</th>
-                                <td>&#8377; <?php echo $sum; ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Bill-Status</th>
-                                <td>
-                                    <?php 
-                                    if($pay_status=="Online-Payment")
-                                    {
-                                        echo "Paid";
-                                    }
-                                    else
-                                    {
-                                    echo "Not Paid"; 
-                                    }
-                                    ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Table Status</th>
-                                <td><a type="button" class="btn btn-success" onclick="execute('<?php echo $get_num; ?>')">Vacate</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+
                     <table id="example" class="table table-bordered dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
+                                <th>Table number</th>
                                 <th>Itemname</th>
                                 <th>Quantity</th>
-                                <th>Total</th>
-                                <th>Payment</th>
-                                <th>Status</th>
                                 <th>OrderTime</th>
                                 <th>DeliveryTime</th>
                                 <th>Delivery Status</th>
@@ -172,10 +121,8 @@ $count = mysqli_num_rows($infe);
                                 $candid = $fetch[6];
                             ?>
                                 <tr>
+                                    <td><?php echo $tableno;?></td>
                                     <td><?php echo $fetch[9]; ?></td>
-                                    <td><?php echo $fetch[4]; ?></td>
-                                    <td><?php echo $fetch[5]; ?></td>
-                                    <td><?php echo $fetch[10]; ?></td>
                                     <td><?php echo $fetch[11]; ?></td>
                                     <td><?php echo $fetch[13]; ?></td>
                                     <td><?php echo $fetch[14]; ?></td>
