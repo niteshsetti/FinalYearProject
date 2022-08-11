@@ -65,6 +65,9 @@ $count_it = mysqli_num_rows($execs);
     #oop {
         width: 40em;
     }
+    .disclaimer{
+      display:none;
+  }
 </style>
 
 <body>
@@ -74,11 +77,11 @@ $count_it = mysqli_num_rows($execs);
         <div class="container d-flex justify-content-center justify-content-md-between">
 
             <div class="contact-info d-flex align-items-center">
-                <i class="bi bi-phone d-flex align-items-center"><span>+91 9032271284</span></i>
-                <i class="bi bi-clock d-flex align-items-center ms-4"><span> Mon-Sat: 11AM - 10PM</span></i>
+                <i class="bi bi-phone d-flex align-items-center"><span>9032271284</span></i>
+                <i class="bi bi-clock d-flex align-items-center ms-4"><span>11AM - 10PM</span></i>
             </div>
             <div class="contact-info d-flex align-items-left">
-                <a onclick="play()"><i class="bi bi-box-arrow-left align-items-center ms-4"><span>Signout</span></i></a>
+                <a onclick="play()"><i class="bi bi-box-arrow-left align-items-center ms-4"><span>Logout</span></i></a>
             </div>
         </div>
     </div>
@@ -89,7 +92,7 @@ $count_it = mysqli_num_rows($execs);
             <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
                 <h1 class="logo me-auto me-lg-0">
-                    <p style="color:#cda45e;">Your Confirm List</p>
+                    <p style="color:#cda45e;">List</p>
                 </h1>
                 <?php
                 if ($count_it > 0) {
@@ -291,7 +294,7 @@ $count_it = mysqli_num_rows($execs);
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 var payment = "Online-Payment";
-                                window.location.replace('onlinepayment.php?%20total=' + array);
+                                window.location.replace('onlinepayment.php?%20total=' + array+'&to='+sum);
 
                             }
                         })
@@ -324,8 +327,10 @@ $count_it = mysqli_num_rows($execs);
             }
         </script>
     <script>
-
-
+    function feedback()
+    {
+          window.location.replace('index.php');
+    }
     </script>
 
 </body>

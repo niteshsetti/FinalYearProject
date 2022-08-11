@@ -99,6 +99,9 @@ $count = mysqli_num_rows($infe);
     th {
         color: #cda45e;
     }
+    .disclaimer{
+      display:none;
+  }
 </style>
 
 <body>

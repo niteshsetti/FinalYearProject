@@ -39,7 +39,7 @@ include '../backend/bookingstat.php';
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <script src="../middleware/tabledetails.js"></script>
   <script src="../middleware/voice.js"></script>
-  <script src="../middleware/feedback.js"></script>
+  <script src="../middleware/itemsadd.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- =======================================================
   * Template Name: Restaurantly - v3.7.0
@@ -84,17 +84,10 @@ include '../backend/bookingstat.php';
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="#chefs">Chefs</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li class="dropdown"><a href="#"><span><i class="fa fa-language" style="font-size:30px;"></i>&nbsp;Translate</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li>
-                <div id="google_translate_element"></div>
-              </li>
-            </ul>
-          </li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-      <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Book a table</a>
+      <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Add Items</a>
 
     </div>
   </header><!-- End Header -->
@@ -108,8 +101,7 @@ include '../backend/bookingstat.php';
           <h2>Delivering great food for more than 18 years!</h2>
 
           <div class="btns">
-            <a href="#menu" class="btn-menu animated fadeInUp scrollto">Our Menu</a>
-            <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Book a Table</a>
+            <a href="#menu" class="btn-menu animated fadeInUp scrollto">Add Items</a>
           </div>
         </div>
         <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative" data-aos="zoom-in" data-aos-delay="200">
@@ -230,34 +222,61 @@ include '../backend/bookingstat.php';
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Reservation</h2>
-          <p>Book a Table</p>
+          <h2>Item's Section</h2>
+          <p>Add Items</p>
         </div>
-        <?php
-        for ($i = 0; $i <= 70; $i++) {
-        ?>
-          <div class="row" id="table">
-            <?php
-            if (in_array(($i + 1), $tables_check)) {
-              $date = $table_infos[$i + 1][0];
-              $time = $table_infos[$i + 1][1];
-            ?>
-              <a onclick="tabledisable(<?php echo ($i + 1); ?>, '<?php echo $date; ?>','<?php echo $time; ?>')" data-mdb-toggle="tooltip" data-mdb-html="true" title="Hooray!"><i class="fas fa-ticket-alt" style="font-size:45px;color:red;"></i></a>
-              <h5 class="text-center" style="color:#cda45e;"><?php echo ($i + 1); ?></h5>
-            <?php
-            } else {
-            ?>
-              <a onclick="tabledetails(<?php echo ($i + 1); ?>)"><i class="fas fa-ticket-alt" style="font-size:45px;"></i></a>
-              <h5 class="text-center" style="color:#cda45e;"><?php echo ($i + 1); ?></h5>
-            <?php
-            }
-            ?>
-          </div>
-        <?php
-        }
-        ?>
+        <div class="col mt-5 mt-lg-0">
+            <form  class="php-email-form" autocomplete="off" id="form" enctype="multipart/form-data">
+                <div class="row">
+                  <div class="col">
+                   <select class="form-control" name="itype">
+                          <option selcted hidden value="">Select Item Category</option>
+                          <option value="Starters">Starters</option>
+                          <option value="Salads">Salads</option>
+                          <option value="Non-Veg">Non-Veg</option>
+                          <option value="Veg">Veg</option>
+                          <option value="Soups">Soups</option>
+                    </select>
+                  </div>
+                   <div class="col">
+                    <input type="text" name="iname" class="form-control" id="cname" placeholder="Enter Item Name" >
+                  </div>
+                  <div class="col">
+                  <input type="text" class="form-control" name="icost" id="cphone" placeholder="Enter Item Cost">
+                  </div>
+                  
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col">
+                    <input type="text" class="form-control" name="iquan" id="cphone" placeholder="Enter Item Quantity">
+                  </div>
+                   <div class="col">
+                   <input type="date" class="form-control" name="idate" id="cphone" placeholder="Enter Item Date">
+                  </div>
+                  <div class="col">
+                   <input type="file" class="form-control" name="file" id="cphone" placeholder="Enter Item Image">
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col">
+                     <textarea class="form-control" name="ides" id="cphone" placeholder="Enter Item Des"></textarea>
+                  </div>
+                  
+                </div>
+                <br>
+                <div class="row">
+                   <div class="col">
+                     <div class="text-center"><button type="submit">Submit</button></div>
+                    </div>
+                 </div>
+            </form>
+            
+        </div>
+              
 
-      </div>
+    </div>
     </section><!-- End Book A Table Section -->
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
@@ -309,25 +328,6 @@ include '../backend/bookingstat.php';
             </div>
 
           </div>
-
-          <div class="col-lg-8 mt-5 mt-lg-0">
-            <div  class="php-email-form" autocomplete="off">
-              <div class="row">
-                <div class="col-md-6 form-group">
-                  <input type="text" name="name" class="form-control" id="cname" placeholder="Your Name" >
-                </div>
-                <div class="col-md-6 form-group mt-3 mt-md-0">
-                  <input type="text" class="form-control" name="email" id="cphone" placeholder="Your Phone">
-                </div>
-              </div>
-              <div class="form-group mt-3">
-                <textarea class="form-control" name="message" id="cmsg" rows="8" placeholder="Message" required></textarea>
-              </div>
-              <div class="text-center"><button type="submit" id="feedback" onclick="feed()">Submit</button></div>
-            </div>
-
-          </div>
-
         </div>
 
       </div>

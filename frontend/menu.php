@@ -50,7 +50,11 @@ include '../backend/dbconnection.php';
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
+<style>
+     .disclaimer{
+      display:none;
+  }
+</style>
 <body>
 
     <!-- ======= Top Bar ======= -->
@@ -59,11 +63,11 @@ include '../backend/dbconnection.php';
 
             <div class="contact-info d-flex align-items-center">
                 <i class="bi bi-person-badge d-flex align-items-center ms-4"><span><?php echo "Hello.." . $name; ?></span></i>
-                <i class="bi bi-phone d-flex align-items-center ms-4"><span>+91 <?php echo $phone; ?></span></i>
+                <i class="bi bi-phone d-flex align-items-center ms-4"><span><?php echo $phone; ?></span></i>
                 <!-- <div id="google_translate_element" class="ms-4"></div> -->
             </div>
             <div class="contact-info d-flex align-items-left">
-                <a onclick="play()"><i class="bi bi-box-arrow-left align-items-center ms-4"><span>Signout</span></i></a>
+                <a onclick="play()"><i class="bi bi-box-arrow-left align-items-center ms-4"><span>Logout</span></i></a>
             </div>
         </div>
     </div>
@@ -71,7 +75,7 @@ include '../backend/dbconnection.php';
         <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
             <h3 class="logo me-auto me-lg-0">
-                <p style="color:#cda45e;">Check Our Tasty Menu</p>
+                <p style="color:#cda45e;">Menu</p>
             </h3>
             <a href="./order.php? tablenumber=<?php echo $table_number; ?>"><i class="bi bi-cart d-flex align-items-center" style="color:#cda45e;font-size:30px;"></i><sub id="num"></sub></a>
         </div>

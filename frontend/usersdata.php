@@ -54,6 +54,9 @@ include '../backend/bookingstat.php';
         display: inline-block;
         margin-left: 0em;
     }
+    .disclaimer{
+      display:none;
+  }
 </style>
 
 <body>

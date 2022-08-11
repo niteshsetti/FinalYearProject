@@ -60,6 +60,9 @@ $candid = [];
     #oop {
         width: 40em;
     }
+     .disclaimer{
+      display:none;
+  }
 </style>
 
 <body>
@@ -69,11 +72,11 @@ $candid = [];
         <div class="container d-flex justify-content-center justify-content-md-between">
 
             <div class="contact-info d-flex align-items-center">
-                <i class="bi bi-phone d-flex align-items-center"><span>+91 9032271284</span></i>
-                <i class="bi bi-clock d-flex align-items-center ms-4"><span> Mon-Sat: 11AM - 10PM</span></i>
+                <i class="bi bi-phone d-flex align-items-center"><span>9032271284</span></i>
+                <i class="bi bi-clock d-flex align-items-center ms-4"><span>11AM - 10PM</span></i>
             </div>
             <div class="contact-info d-flex align-items-left">
-                <a onclick="play()"><i class="bi bi-box-arrow-left align-items-center ms-4"><span>Signout</span></i></a>
+                <a onclick="play()"><i class="bi bi-box-arrow-left align-items-center ms-4"><span>Logout</span></i></a>
             </div>
         </div>
     </div>

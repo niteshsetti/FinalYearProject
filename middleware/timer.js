@@ -17,7 +17,7 @@ function call(k) {
                 $("#" + k).html(data);
                 if (data === " ----Time Up Play Quiz") {
                     count += 1
-                    $("#cool" + k).attr('href', "http://localhost/FinalYearProject/frontend/quiz.php?%20tabno="+tab);
+                    $("#cool" + k).attr('href', "https://knvsrestuarant.000webhostapp.com/FinalYearProject/frontend/quiz.php?%20tabno="+tab);
                     document.getElementById(k).style.color = "red";
                 }
                 else if(data!=" ----Time Up Play Quiz")

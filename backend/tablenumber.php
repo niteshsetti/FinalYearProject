@@ -11,4 +11,6 @@ $_SESSION["tableno"]=$table_number;
      $_SESSION["name"]=$name;
      $phone=$get_details[1];
      $_SESSION["phno"]=$phone;
+     $tab=$get_details[3];
+     $_SESSION["tablenumber"]=$tab;
  }

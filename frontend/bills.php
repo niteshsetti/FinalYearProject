@@ -1,8 +1,13 @@
 <?php
+ob_start();
+session_start();
 include '../backend/dbconnection.php';
-$table_number=$_SESSION["tableno"];
+include '../backend/cartsum.php';
+$table_number = $_SESSION["tablenumber"];
 $arrs=$_GET["details"];
+echo $arrs;
 $arr = explode(",", $arrs);
+print_r($arr);
 $payment = "Online-Payment";
 $date = date("d/D/M/Y");
 date_default_timezone_set('Asia/Kolkata');
@@ -15,7 +20,7 @@ for ($i = 0; $i < count($arr); $i++) {
      $execute = mysqli_query($connection, $sql);
      if ($execute)
      {
-       header("Location:http://localhost/FinalYearProject/frontend/payment.php?%20tableno=".$table_number);
+      header("Location:https://knvsrestuarant.000webhostapp.com/FinalYearProject/frontend/payment.php?%20tableno=".$table_number);
      }
      else
      {

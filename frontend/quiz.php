@@ -13,6 +13,9 @@
 * {
   box-sizing: border-box;
 }
+  .disclaimer{
+      display:none;
+  }
 
 body {
   background-color:#0c0b09;

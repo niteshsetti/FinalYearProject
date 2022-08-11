@@ -13,12 +13,12 @@ $(document).ready(function(e) {
         {
             if(data==="Success")
             {
-                swal("Success","Item Inserted Successfully",'success');
+                alert("Success","Item Inserted Successfully",'success');
                 document.getElementById("form").reset();
             }
             else
             {
-            swal("Error", data, "error");
+            alert("Error", data, "error");
             }
         }
       });
